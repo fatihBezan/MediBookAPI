@@ -5,7 +5,7 @@ using MediCareAPI.Model.Entities;
 
 namespace MediBookAPI.DataAccess.Repositories.Abstracts;
 
-public interface IAppointmentRepository:IRepository<Appointment , int>
+public interface IPatient : IRepository<Patient, int>
 {
 
 }

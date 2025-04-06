@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core.DataAccess\Core.DataAccess.csproj" />
+    <ProjectReference Include="..\MediBookAPI.DataAccess\MediBookAPI.DataAccess.csproj" />
+    <ProjectReference Include="..\MediBookAPI.Model\MediBookAPI.Model.csproj" />
+  </ItemGroup>
+
 </Project>

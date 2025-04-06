@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MediBookAPI.DataAccess\MediBookAPI.DataAccess.csproj" />
+    <ProjectReference Include="..\MediBookAPI.Model\MediBookAPI.Model.csproj" />
+    <ProjectReference Include="..\MediBookAPI.Service\MediBookAPI.Service.csproj" />
   </ItemGroup>
 
 </Project>

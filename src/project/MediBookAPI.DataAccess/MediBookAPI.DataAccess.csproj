@@ -11,8 +11,4 @@
     <ProjectReference Include="..\MediBookAPI.Model\MediBookAPI.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\Concretes\" />
-  </ItemGroup>
-
 </Project>
