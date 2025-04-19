@@ -8,7 +8,7 @@ using MediCareAPI.Model.Entities;
 
 namespace MediBookAPI.DataAccess.Repositories.Concretes;
 
-public class HospitalRepository : EfRepositoryBase<Hospital, int, BaseDbContext>, IHospital
+public class HospitalRepository : EfRepositoryBase<Hospital, int, BaseDbContext>, IHospitalRepository
 {
     public HospitalRepository(BaseDbContext context) : base(context)
     {

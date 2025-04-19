@@ -8,7 +8,7 @@ using MediCareAPI.Model.Entities;
 
 namespace MediBookAPI.DataAccess.Repositories.Concretes;
 
-public class UserRepository : EfRepositoryBase<User, int, BaseDbContext>, IUser
+public class UserRepository : EfRepositoryBase<User, int, BaseDbContext>, IUserRepository
 {
     public UserRepository(BaseDbContext context) : base(context)
     {

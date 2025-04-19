@@ -10,10 +10,10 @@ public sealed class BaseDbContext:DbContext
 {
 
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer(@"server=ASUS\SQLEXPRESS; Database=MediBookAPI_Db;Trusted_connection=true;TrustServerCertificate=True;");
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseSqlServer(@"server=ASUS\SQLEXPRESS; Database=MediBookAPI_Db;Trusted_connection=true;TrustServerCertificate=True;");
+    //}
 
     public DbSet<Appointment> Appointments { get; set; }
 

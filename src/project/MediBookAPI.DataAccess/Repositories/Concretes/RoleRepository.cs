@@ -8,7 +8,7 @@ using MediCareAPI.Model.Entities;
 
 namespace MediBookAPI.DataAccess.Repositories.Concretes;
 
-public class RoleRepository : EfRepositoryBase<Role, int, BaseDbContext>, IRole
+public class RoleRepository : EfRepositoryBase<Role, int, BaseDbContext>, IRoleRepository
 {
     public RoleRepository(BaseDbContext context) : base(context)
     {
