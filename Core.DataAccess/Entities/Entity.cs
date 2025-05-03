@@ -1,10 +1,7 @@
-﻿
-
-namespace Core.DataAccess.Entities;
+﻿namespace Core.DataAccess.Entities;
 
 public abstract class Entity<TId>
 {
-
     public DateTime CreatedTime { get; set; }
 
     public DateTime? UpdateTime { get; set; }
@@ -14,12 +11,10 @@ public abstract class Entity<TId>
     public Entity()
     {
         Id = default;
-        
     }
 
     public Entity(TId id)
     {
-        Id = default;
-
+        Id = id;
     }
 }

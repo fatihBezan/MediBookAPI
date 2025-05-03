@@ -1,8 +1,8 @@
 ﻿
 
 using AutoMapper;
-using MediCareAPI.Model.Dtos.Appointments;
-using MediCareAPI.Model.Entities;
+using MediBookAPI.Model.Dtos.Appointments;
+using MediBookAPI.Model.Entities;
 
 namespace MediBookAPI.Service.Mappers.Categories;
 
@@ -17,7 +17,7 @@ public sealed class AppointmentAutoMapper : IAppointmentMapper
 
     public Appointment ConvertToEntity(AppointmentAddRequestDto dto)
     {
-         return _mapper.Map<Appointment>(dto);
+        return _mapper.Map<Appointment>(dto);
     }
 
     public Appointment ConvertToEntity(AppointmentUpdateRequestDto dto)
@@ -27,11 +27,18 @@ public sealed class AppointmentAutoMapper : IAppointmentMapper
 
     public AppointmentResponseDto ConvertToResponse(Appointment appointment)
     {
-        return _mapper.Map<AppointmentResponseDto>(appointment);
+       return _mapper.Map<AppointmentResponseDto>(appointment);
     }
 
     public List<AppointmentResponseDto> ConvertToResponseList(List<Appointment> appointments)
     {
-        return _mapper.Map<List<AppointmentResponseDto>>(appointments);
+       return _mapper.Map<List<AppointmentResponseDto>>(appointments);
     }
+
+
+    
+   
+   
+
+
 }

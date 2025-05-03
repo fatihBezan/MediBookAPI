@@ -1,6 +1,6 @@
 ﻿
 
-using MediCareAPI.Model.Dtos.Doctors;
+using MediBookAPI.Model.Dtos.Doctors;
 
 namespace MediBookAPI.Service.Abstracts;
 

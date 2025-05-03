@@ -1,5 +1,5 @@
 ﻿
-namespace MediCareAPI.Model.Dtos.Doctors;
+namespace MediBookAPI.Model.Dtos.Doctors;
 
 public sealed record  DoctorAddRequestDto
 {
@@ -9,4 +9,6 @@ public sealed record  DoctorAddRequestDto
     public string? LastName { get; set; }
 
     public string? Specialty { get; set; }
+
+   
 }

@@ -1,7 +1,7 @@
 ﻿
 using Core.DataAccess.Entities;
 
-namespace MediCareAPI.Model.Entities;
+namespace MediBookAPI.Model.Entities;
 
 public sealed class Hospital:Entity<int>
 {

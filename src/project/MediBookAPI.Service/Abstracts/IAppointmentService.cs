@@ -1,6 +1,6 @@
 ﻿
 
-using MediCareAPI.Model.Dtos.Appointments;
+using MediBookAPI.Model.Dtos.Appointments;
 
 namespace MediBookAPI.Service.Abstracts;
 

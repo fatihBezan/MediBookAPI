@@ -1,6 +1,6 @@
 ﻿
 
-namespace MediCareAPI.Model.Dtos.Hospitals;
+namespace MediBookAPI.Model.Dtos.Hospitals;
 
 public sealed record HospitalUpdateRequestDto
 {

@@ -1,6 +1,6 @@
 ﻿
 
-namespace MediCareAPI.Model.Dtos.Appointments;
+namespace MediBookAPI.Model.Dtos.Appointments;
 
 public sealed record AppointmentResponseDto
 {

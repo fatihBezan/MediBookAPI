@@ -1,8 +1,11 @@
 ﻿
 using AutoMapper;
 using MediBookAPI.DataAccess.Repositories.Abstracts;
+using MediBookAPI.DataAccess.Repositories.Concretes;
 using MediBookAPI.Service.Abstracts;
-using MediCareAPI.Model.Dtos.Doctors;
+using MediBookAPI.Model.Dtos.Appointments;
+using MediBookAPI.Model.Dtos.Doctors;
+using MediBookAPI.Model.Entities;
 
 namespace MediBookAPI.Service.Concretes;
 
@@ -19,7 +22,13 @@ public sealed class DoctorService : IDoctorService
 
     public void Add(DoctorAddRequestDto dto)
     {
-        throw new NotImplementedException();
+        Doctor doctor = new()
+        {
+            FirstName=dto.FirstName,
+            LastName=dto.LastName,
+            Specialty=dto.Specialty
+        };
+        _doctorRepository.Add(doctor);  
     }
 
     public void Delete(int id)
@@ -29,7 +38,9 @@ public sealed class DoctorService : IDoctorService
 
     public List<DoctorResponseDto> GetAll()
     {
-        throw new NotImplementedException();
+
+        List<Doctor> doctors = _doctorRepository.GetAll();
+        return _mapper.Map<List<DoctorResponseDto>>(doctors);
     }
 
     public DoctorResponseDto? GetById(int id)

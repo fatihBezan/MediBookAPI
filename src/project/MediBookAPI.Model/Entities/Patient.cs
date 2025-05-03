@@ -1,7 +1,7 @@
 ﻿
 using Core.DataAccess.Entities;
 
-namespace MediCareAPI.Model.Entities;
+namespace MediBookAPI.Model.Entities;
 
 public sealed class Patient:Entity<int>
 {
@@ -10,7 +10,7 @@ public sealed class Patient:Entity<int>
     {
         FirstName = string.Empty;
         LastName = string.Empty;
-        Appointments = new HashSet<Appointment>();
+        Appointments = new HashSet<Doctor>();
 
     }
     
@@ -20,6 +20,6 @@ public sealed class Patient:Entity<int>
 
     public DateTime BirthDate { get; set; }
 
-    public ICollection<Appointment> Appointments { get; set; }
+    public ICollection<Doctor> Appointments { get; set; }
 
 }

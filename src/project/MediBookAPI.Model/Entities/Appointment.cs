@@ -2,26 +2,28 @@
 
 using Core.DataAccess.Entities;
 
-namespace MediCareAPI.Model.Entities
+namespace MediBookAPI.Model.Entities;
+
+
+public sealed class Appointment: Entity<int>
 {
-
-    public sealed class Appointment: Entity<int>
+    public Appointment()
     {
-        public Appointment()
-        {
-            Notes=string.Empty;
-        }
-
-        public DateTime AppointmentDate { get; set; }
-
-        public string Notes { get; set; }
-
-
-
-        public int DoctorId { get; set; }
-
-        public int PatientId { get; set; }
-
-
+        Notes=string.Empty;
     }
+
+    public DateTime AppointmentDate { get; set; }
+
+    public string Notes { get; set; }
+
+
+    public Doctor Doctor { get; set; }
+
+    public Patient Patient { get; set; }
+
+    public int DoctorId { get; set; }
+
+    public int PatientId { get; set; }
+
+
 }

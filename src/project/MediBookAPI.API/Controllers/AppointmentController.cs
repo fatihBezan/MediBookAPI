@@ -1,6 +1,6 @@
 ﻿using MediBookAPI.Service.Abstracts;
 using MediBookAPI.Service.Concretes;
-using MediCareAPI.Model.Dtos.Appointments;
+using MediBookAPI.Model.Dtos.Appointments;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +21,7 @@ public class AppointmentController : ControllerBase
     public IActionResult Add(AppointmentAddRequestDto dto)
     {
         _appointmentService.Add(dto);
-        return Ok("Rndevu başarı ile alındı");
+        return Ok("Randevu başarı ile alındı");
     }
 
     [HttpGet("getall")]

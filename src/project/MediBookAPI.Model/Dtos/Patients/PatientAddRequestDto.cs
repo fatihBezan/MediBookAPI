@@ -1,5 +1,5 @@
 ﻿
-namespace MediCareAPI.Model.Dtos.Patients;
+namespace MediBookAPI.Model.Dtos.Patients;
 
 public sealed record PatientAddRequestDto
 {

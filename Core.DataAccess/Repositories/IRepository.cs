@@ -1,5 +1,4 @@
-﻿
-using Core.DataAccess.Entities;
+﻿using Core.DataAccess.Entities;
 
 namespace Core.DataAccess.Repositories
 {
@@ -13,7 +12,9 @@ namespace Core.DataAccess.Repositories
 
         TEntity? GetById(TId id);
 
-        List<TEntity> GetAll();
+        List<TEntity> GetAll(bool include = true);
+
+        
 
     }
 }

@@ -1,12 +1,9 @@
-﻿
+﻿using Core.DataAccess.Entities;
 
-using Core.DataAccess.Entities;
-
-namespace MediCareAPI.Model.Entities;
+namespace MediBookAPI.Model.Entities;
 
 public sealed class Doctor:Entity<int>
 {
-
     public Doctor()
     {
         FirstName=string.Empty;
@@ -24,7 +21,6 @@ public sealed class Doctor:Entity<int>
 
     public int HospitalId { get; set; }
 
-    
     public Hospital Hospital { get; set; }
 
     public ICollection<Appointment> Appointments { get; set; }

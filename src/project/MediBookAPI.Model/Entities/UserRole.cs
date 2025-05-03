@@ -2,7 +2,7 @@
 
 using Core.DataAccess.Entities;
 
-namespace MediCareAPI.Model.Entities;
+namespace MediBookAPI.Model.Entities;
 
 public sealed class UserRole:Entity<int>
 {

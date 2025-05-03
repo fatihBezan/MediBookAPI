@@ -1,69 +1,66 @@
-﻿
-
+﻿using AutoMapper;
 using MediBookAPI.DataAccess.Repositories.Abstracts;
 using MediBookAPI.DataAccess.Repositories.Concretes;
 using MediBookAPI.Service.Abstracts;
-using MediCareAPI.DataAccess.Contexts;
-using MediCareAPI.Model.Dtos.Appointments;
-using MediCareAPI.Model.Entities;
+using MediBookAPI.Service.Helpers;
+using MediBookAPI.DataAccess.Contexts;
+using MediBookAPI.Model.Dtos.Appointments;
+using MediBookAPI.Model.Entities;
+using System;
 
 namespace MediBookAPI.Service.Concretes;
 
 public sealed class AppointmentService : IAppointmentService
 {
     private readonly IAppointmentRepository _appointmentsRepository;
+    private readonly IMapper _mapper;
+    private readonly ICloudinaryHelper _cloudinaryHelper;
 
-    public AppointmentService(IAppointmentRepository appointmentsRepository)
+    public AppointmentService(IAppointmentRepository appointmentsRepository, IMapper mapper, ICloudinaryHelper cloudinaryHelper)
     {
         _appointmentsRepository = appointmentsRepository;
+        _mapper = mapper;
+        _cloudinaryHelper = cloudinaryHelper;
     }
 
     public void Add(AppointmentAddRequestDto dto)
     {
         Appointment appointment = new()
         {
-            Notes=dto.Notes
-        } ;
+            Notes = dto.Notes,
+            AppointmentDate = dto.AppointmentDate
+        };
 
         _appointmentsRepository.Add(appointment);
     }
 
     public void Delete(int id)
     {
-        var appointment=_appointmentsRepository.GetById(id);
+        var appointment = _appointmentsRepository.GetById(id);
 
-        if (appointment == null)  
+        if (appointment == null)
         {
-            //exception fırlat
+            throw new ArgumentException($"Appointment with id {id} not found");
         }
-        _appointmentsRepository.Delete(appointment!);
+        _appointmentsRepository.Delete(appointment);
     }
 
     public List<AppointmentResponseDto> GetAll()
     {
-       List<Appointment> appointments = _appointmentsRepository.GetAll();
-        List<AppointmentResponseDto> result = new List<AppointmentResponseDto>();
-
-        foreach (Appointment item in appointments) 
-        {
-            AppointmentResponseDto appointmentResponseDto = new AppointmentResponseDto();
-            result.Add(appointmentResponseDto);
-        }
-        return result;  
+        List<Appointment> appointments = _appointmentsRepository.GetAll();
+        return _mapper.Map<List<AppointmentResponseDto>>(appointments);
     }
 
     public AppointmentResponseDto GetById(int id)
     {
-        Appointment? appointment =_appointmentsRepository.GetById(id) ;
+        Appointment? appointment = _appointmentsRepository.GetById(id);
 
         if (appointment is null)
         {
-           //exception fırlat 
+            throw new ArgumentException($"Appointment with id {id} not found");
         }
 
-        AppointmentResponseDto appointmentResponseDto=new AppointmentResponseDto();
-
-        return appointmentResponseDto;  
+        return _mapper.Map<AppointmentResponseDto>(appointment);
     }
 
     public void Update(AppointmentUpdateRequestDto dto)
@@ -71,9 +68,10 @@ public sealed class AppointmentService : IAppointmentService
         Appointment? appointment = _appointmentsRepository.GetById(dto.Id);
         if (appointment is null)
         {
-            //exception fırlat
+            throw new ArgumentException($"Appointment with id {dto.Id} not found");
         }
 
+        _mapper.Map(dto, appointment);
         _appointmentsRepository.Update(appointment);
     }
 }

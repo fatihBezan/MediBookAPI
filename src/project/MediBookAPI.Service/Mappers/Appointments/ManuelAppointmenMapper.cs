@@ -1,7 +1,8 @@
 ﻿
 
-using MediCareAPI.Model.Dtos.Appointments;
-using MediCareAPI.Model.Entities;
+using MediBookAPI.Service.Mappers.Doctors;
+using MediBookAPI.Model.Dtos.Appointments;
+using MediBookAPI.Model.Entities;
 
 namespace MediBookAPI.Service.Mappers.Categories;
 
@@ -11,7 +12,10 @@ public sealed class ManuelAppointmenMapper : IAppointmentMapper
     {
         return new Appointment
         {
-            Notes = dto.Notes
+            Notes = dto.Notes,
+            AppointmentDate = dto.AppointmentDate,
+            
+
         };
     }
 
@@ -20,6 +24,7 @@ public sealed class ManuelAppointmenMapper : IAppointmentMapper
         return new Appointment
         {
             Id = dto.Id,
+            AppointmentDate= dto.AppointmentDate,
             Notes=dto.Notes
         };
     }
@@ -31,6 +36,6 @@ public sealed class ManuelAppointmenMapper : IAppointmentMapper
 
     public List<AppointmentResponseDto> ConvertToResponseList(List<Appointment> appointments)
     {
-        return appointments.Select(x=>ConvertToResponse(x)).ToList();
+        return appointments.Select(x => ConvertToResponse(x)).ToList();
     }
 }

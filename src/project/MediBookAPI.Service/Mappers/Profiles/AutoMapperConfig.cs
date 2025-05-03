@@ -1,8 +1,9 @@
 ﻿
 using System.Collections.Generic;
 using AutoMapper;
-using MediCareAPI.Model.Dtos.Appointments;
-using MediCareAPI.Model.Entities;
+using MediBookAPI.Model.Dtos.Appointments;
+using MediBookAPI.Model.Dtos.Doctors;
+using MediBookAPI.Model.Entities;
 
 namespace MediBookAPI.Service.Mappers.Profiles;
 
@@ -16,7 +17,8 @@ public class AutoMapperConfig:Profile
 
         CreateMap<Appointment, AppointmentResponseDto>();
 
-       
+       CreateMap<DoctorAddRequestDto,Doctor>();
+        CreateMap<Doctor,DoctorResponseDto>();
 
     }
 }

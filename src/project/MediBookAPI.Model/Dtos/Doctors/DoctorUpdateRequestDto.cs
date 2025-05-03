@@ -1,5 +1,5 @@
 ﻿
-namespace MediCareAPI.Model.Dtos.Doctors;
+namespace MediBookAPI.Model.Dtos.Doctors;
 
 public sealed record DoctorUpdateRequestDto
 {

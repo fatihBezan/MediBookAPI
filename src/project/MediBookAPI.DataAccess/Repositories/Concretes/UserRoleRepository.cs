@@ -1,10 +1,7 @@
-﻿
-
-
-using Core.DataAccess.Repositories;
+﻿using Core.DataAccess.Repositories;
 using MediBookAPI.DataAccess.Repositories.Abstracts;
-using MediCareAPI.DataAccess.Contexts;
-using MediCareAPI.Model.Entities;
+using MediBookAPI.DataAccess.Contexts;
+using MediBookAPI.Model.Entities;
 
 namespace MediBookAPI.DataAccess.Repositories.Concretes;
 
