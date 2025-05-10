@@ -1,7 +1,6 @@
-﻿using MediBookAPI.Service.Abstracts;
-using MediBookAPI.Service.Concretes;
-using MediBookAPI.Model.Dtos.Appointments;
-using Microsoft.AspNetCore.Http;
+﻿using MediBookAPI.Model.Dtos.Appointments;
+using MediBookAPI.Service.Abstracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediBookAPI.API.Controllers;
@@ -17,39 +16,44 @@ public class AppointmentController : ControllerBase
         _appointmentService = appointmentService;
     }
 
-    [HttpPost("Add")]
-    public IActionResult Add(AppointmentAddRequestDto dto)
+    [HttpPost]
+    [Authorize]
+    public IActionResult Add([FromBody] AppointmentAddRequestDto request)
     {
-        _appointmentService.Add(dto);
-        return Ok("Randevu başarı ile alındı");
+        _appointmentService.Add(request);
+        return Ok("Randevu başarıyla oluşturuldu.");
     }
 
-    [HttpGet("getall")]
+    [HttpGet]
+    [Authorize]
     public IActionResult GetAll()
-    { 
-        var response=_appointmentService.GetAll();
-        return Ok(response);
+    {
+        var appointments = _appointmentService.GetAll();
+        return Ok(appointments);
     }
 
-    [HttpGet("getbyid")]
-    public IActionResult GetById(int id)  
-    { 
-        var response = _appointmentService.GetById(id); 
-        return Ok(response);
+    [HttpGet("{id}")]
+    [Authorize]
+    public IActionResult GetById(int id)
+    {
+        var appointment = _appointmentService.GetById(id);
+        return Ok(appointment);
     }
 
-    [HttpPut("update")]
-
-    public IActionResult Update(AppointmentUpdateRequestDto dto) 
-    { 
-        _appointmentService.Update(dto);
-        return Ok("Randevu güncellendi");
+    [HttpPut("{id}")]
+    [Authorize]
+    public IActionResult Update(int id, [FromBody] AppointmentUpdateRequestDto request)
+    {
+        request.Id = id;
+        _appointmentService.Update(request);
+        return Ok("Randevu başarıyla güncellendi.");
     }
 
-    [HttpDelete("delete")]
-    public IActionResult Delete(int id)  
-    { 
+    [HttpDelete("{id}")]
+    [Authorize]
+    public IActionResult Delete(int id)
+    {
         _appointmentService.Delete(id);
-        return Ok("randevu silindi");
+        return Ok("Randevu başarıyla silindi.");
     }
 }
