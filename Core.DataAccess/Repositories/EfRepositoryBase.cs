@@ -21,7 +21,7 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
     {
         //Set fonksiyonu burada => Context.(class) işlemi yapar
         entity.CreatedTime = DateTime.Now;
-        Context.Set<TEntity>().Add(entity);
+        Context.Entry(entity).State = EntityState.Added;
         Context.SaveChanges();
         return entity;
 
@@ -29,7 +29,7 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
 
     public TEntity Delete(TEntity entity)
     {
-        Context.Set<TEntity>().Remove(entity);      
+        Context.Entry(entity).State = EntityState.Deleted;
         Context.SaveChanges();
         return entity;
     }
@@ -44,7 +44,7 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
     public TEntity Update(TEntity entity)
     {
         entity.UpdateTime = DateTime.Now;
-        Context.Set<TEntity>().Update(entity);
+        Context.Entry(entity).State = EntityState.Modified;
         Context.SaveChanges();
         return entity;
     }
@@ -59,5 +59,9 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
         }
 
         return query.ToList();
+    }
+    public IQueryable<TEntity> Query()
+    {
+        return Context.Set<TEntity>();
     }
 }

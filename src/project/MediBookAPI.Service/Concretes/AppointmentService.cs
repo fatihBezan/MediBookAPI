@@ -7,71 +7,68 @@ using MediBookAPI.DataAccess.Contexts;
 using MediBookAPI.Model.Dtos.Appointments;
 using MediBookAPI.Model.Entities;
 using System;
+using MediBookAPI.Service.BusinessRules;
 
 namespace MediBookAPI.Service.Concretes;
 
-public sealed class AppointmentService : IAppointmentService
+public class AppointmentService : IAppointmentService
 {
-    private readonly IAppointmentRepository _appointmentsRepository;
+    private readonly IAppointmentRepository _appointmentRepository;
     private readonly IMapper _mapper;
     private readonly ICloudinaryHelper _cloudinaryHelper;
+    private readonly AppointmentBusinessRules _businessRules;
 
-    public AppointmentService(IAppointmentRepository appointmentsRepository, IMapper mapper, ICloudinaryHelper cloudinaryHelper)
+    public AppointmentService(
+        IAppointmentRepository appointmentRepository,
+        IMapper mapper,
+        ICloudinaryHelper cloudinaryHelper,
+        AppointmentBusinessRules businessRules)
     {
-        _appointmentsRepository = appointmentsRepository;
+        _appointmentRepository = appointmentRepository;
         _mapper = mapper;
         _cloudinaryHelper = cloudinaryHelper;
+        _businessRules = businessRules;
     }
 
-    public void Add(AppointmentAddRequestDto dto)
+    public void Add(AppointmentAddRequestDto request)
     {
-        Appointment appointment = new()
-        {
-            Notes = dto.Notes,
-            AppointmentDate = dto.AppointmentDate
-        };
+        _businessRules.CheckIfPatientCanMakeAppointment(request.PatientId, request.AppointmentDate);
+        _businessRules.CheckIfAppointmentDateIsValid(request.AppointmentDate);
 
-        _appointmentsRepository.Add(appointment);
+        var appointment = _mapper.Map<Appointment>(request);
+        _appointmentRepository.Add(appointment);
     }
 
     public void Delete(int id)
     {
-        var appointment = _appointmentsRepository.GetById(id);
-
-        if (appointment == null)
-        {
-            throw new ArgumentException($"Appointment with id {id} not found");
-        }
-        _appointmentsRepository.Delete(appointment);
+        var appointment = _appointmentRepository.GetById(id) ?? 
+            throw new Exception("Randevu bulunamadı");
+        
+        _appointmentRepository.Delete(appointment);
     }
 
     public List<AppointmentResponseDto> GetAll()
     {
-        List<Appointment> appointments = _appointmentsRepository.GetAll();
+        var appointments = _appointmentRepository.GetAll();
         return _mapper.Map<List<AppointmentResponseDto>>(appointments);
     }
 
     public AppointmentResponseDto GetById(int id)
     {
-        Appointment? appointment = _appointmentsRepository.GetById(id);
-
-        if (appointment is null)
-        {
-            throw new ArgumentException($"Appointment with id {id} not found");
-        }
-
+        var appointment = _appointmentRepository.GetById(id) ?? 
+            throw new Exception("Randevu bulunamadı");
+        
         return _mapper.Map<AppointmentResponseDto>(appointment);
     }
 
-    public void Update(AppointmentUpdateRequestDto dto)
+    public void Update(AppointmentUpdateRequestDto request)
     {
-        Appointment? appointment = _appointmentsRepository.GetById(dto.Id);
-        if (appointment is null)
-        {
-            throw new ArgumentException($"Appointment with id {dto.Id} not found");
-        }
+        var appointment = _appointmentRepository.GetById(request.Id) ?? 
+            throw new Exception("Randevu bulunamadı");
 
-        _mapper.Map(dto, appointment);
-        _appointmentsRepository.Update(appointment);
+        _businessRules.CheckIfAppointmentDateIsValid(request.AppointmentDate);
+        
+        _mapper.Map(request, appointment);
+        _appointmentRepository.Update(appointment);
     }
 }

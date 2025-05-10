@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediBookAPI.DataAccess.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20250429140526_AddPatientIdToAppointment")]
-    partial class AddPatientIdToAppointment
+    [Migration("20250506215419_migend")]
+    partial class migend
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,29 +25,35 @@ namespace MediBookAPI.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.Appointment", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.Appointment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("AppointmentDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("AppointmentDate");
 
                     b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedTime");
 
                     b.Property<int>("DoctorId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("DoctorId");
 
                     b.Property<string>("Notes")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Notes");
 
                     b.Property<int>("PatientId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("PatientId");
 
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
@@ -56,37 +62,45 @@ namespace MediBookAPI.DataAccess.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Appointments");
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Appointments", (string)null);
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.Doctor", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.Doctor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedTime");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("FirstName");
 
                     b.Property<int>("HospitalId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("HospitalId");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PatientId")
-                        .HasColumnType("int");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("LastName");
 
                     b.Property<string>("Specialty")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Specialty");
 
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
@@ -95,73 +109,124 @@ namespace MediBookAPI.DataAccess.Migrations
 
                     b.HasIndex("HospitalId");
 
-                    b.HasIndex("PatientId");
+                    b.ToTable("Doctors", (string)null);
 
-                    b.ToTable("Doctors");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedTime = new DateTime(2025, 5, 6, 21, 54, 19, 530, DateTimeKind.Utc).AddTicks(8738),
+                            FirstName = "Furkan",
+                            HospitalId = 1,
+                            LastName = "Duman",
+                            Specialty = "Kardiyoloji"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedTime = new DateTime(2025, 5, 6, 21, 54, 19, 530, DateTimeKind.Utc).AddTicks(8741),
+                            FirstName = "Hatice",
+                            HospitalId = 1,
+                            LastName = "Duman",
+                            Specialty = "Nöroloji"
+                        });
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.Hospital", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.Hospital", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("Address");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("City");
 
                     b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedTime");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Name");
 
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hospitals");
+                    b.ToTable("Hospitals", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Bağcılar",
+                            City = "İstanbul",
+                            CreatedTime = new DateTime(2025, 5, 6, 21, 54, 19, 531, DateTimeKind.Utc).AddTicks(1274),
+                            Name = "Medipol Hastanesi"
+                        });
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.Patient", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.Patient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("BirthDate");
 
                     b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedTime");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("FirstName");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("LastName");
 
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BirthDate = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedTime = new DateTime(2025, 5, 6, 21, 54, 19, 531, DateTimeKind.Utc).AddTicks(3723),
+                            FirstName = "Ahmet",
+                            LastName = "Yılmaz"
+                        });
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.Role", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -188,7 +253,7 @@ namespace MediBookAPI.DataAccess.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.User", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -223,7 +288,7 @@ namespace MediBookAPI.DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.UserRole", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.UserRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -252,39 +317,45 @@ namespace MediBookAPI.DataAccess.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.Appointment", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.Appointment", b =>
                 {
-                    b.HasOne("MediCareAPI.Model.Entities.Doctor", null)
+                    b.HasOne("MediBookAPI.Model.Entities.Doctor", "Doctor")
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MediBookAPI.Model.Entities.Patient", "Patient")
+                        .WithMany("Appointments")
+                        .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.Doctor", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.Doctor", b =>
                 {
-                    b.HasOne("MediCareAPI.Model.Entities.Hospital", "Hospital")
+                    b.HasOne("MediBookAPI.Model.Entities.Hospital", "Hospital")
                         .WithMany("Doctors")
                         .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("MediCareAPI.Model.Entities.Patient", null)
-                        .WithMany("Appointments")
-                        .HasForeignKey("PatientId");
 
                     b.Navigation("Hospital");
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.UserRole", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.UserRole", b =>
                 {
-                    b.HasOne("MediCareAPI.Model.Entities.Role", "Role")
+                    b.HasOne("MediBookAPI.Model.Entities.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MediCareAPI.Model.Entities.User", "User")
+                    b.HasOne("MediBookAPI.Model.Entities.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -295,27 +366,27 @@ namespace MediBookAPI.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.Doctor", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.Doctor", b =>
                 {
                     b.Navigation("Appointments");
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.Hospital", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.Hospital", b =>
                 {
                     b.Navigation("Doctors");
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.Patient", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.Patient", b =>
                 {
                     b.Navigation("Appointments");
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.Role", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.Role", b =>
                 {
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("MediCareAPI.Model.Entities.User", b =>
+            modelBuilder.Entity("MediBookAPI.Model.Entities.User", b =>
                 {
                     b.Navigation("UserRoles");
                 });

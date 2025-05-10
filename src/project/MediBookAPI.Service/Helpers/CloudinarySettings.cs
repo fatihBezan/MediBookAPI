@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace MediBookAPI.Service.Helpers;
 

@@ -14,7 +14,7 @@ namespace Core.DataAccess.Repositories
 
         List<TEntity> GetAll(bool include = true);
 
-        
+        IQueryable<TEntity> Query();
 
     }
 }

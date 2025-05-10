@@ -1,16 +1,12 @@
-﻿
-
-using MediBookAPI.Model.Dtos.Appointments;
+﻿using MediBookAPI.Model.Dtos.Appointments;
 
 namespace MediBookAPI.Service.Abstracts;
 
 public interface IAppointmentService
 {
-    void Add(AppointmentAddRequestDto dto);
-    void Update(AppointmentUpdateRequestDto dto);
+    void Add(AppointmentAddRequestDto request);
     void Delete(int id);
-
+    void Update(AppointmentUpdateRequestDto request);
     List<AppointmentResponseDto> GetAll();
-
-    AppointmentResponseDto GetById(int id); 
+    AppointmentResponseDto GetById(int id);
 }
