@@ -10,5 +10,6 @@ public sealed record  DoctorAddRequestDto
 
     public string? Specialty { get; set; }
 
-   
+    public int HospitalId { get; set; }
+
 }

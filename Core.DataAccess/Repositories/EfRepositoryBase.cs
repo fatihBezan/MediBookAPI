@@ -1,6 +1,7 @@
 ﻿
 
 using Core.DataAccess.Entities;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
@@ -16,16 +17,34 @@ public abstract class EfRepositoryBase<TEntity, TId, TContext> : IRepository<TEn
     {
         Context= context;
     }
-
     public TEntity Add(TEntity entity)
     {
-        //Set fonksiyonu burada => Context.(class) işlemi yapar
-        entity.CreatedTime = DateTime.Now;
-        Context.Entry(entity).State = EntityState.Added;
-        Context.SaveChanges();
-        return entity;
-
+        try
+        {
+            entity.CreatedTime = DateTime.Now; // DateTime.Now olarak düzeltildi
+            Context.Set<TEntity>().Add(entity); // Doğru ekleme yöntemi
+            Context.SaveChanges(); // SavedRange yerine SaveChanges
+            return entity;
+        }
+        catch (DbUpdateException ex)
+        {
+            // Hata yönetimi
+            if (ex.InnerException is SqlException sqlEx && sqlEx.Number == 547)
+            {
+                throw new Exception("Geçersiz HospitalId. Lütfen geçerli bir hastane ID'si sağlayın.", ex);
+            }
+            throw;
+        }
     }
+    //public TEntity Add(TEntity entity)
+    //{
+    //    //Set fonksiyonu burada => Context.(class) işlemi yapar
+    //    entity.CreatedTime = DateTime.Now;
+    //    Context.Entry(entity).State = EntityState.Added;
+    //    Context.SaveChanges();
+    //    return entity;
+
+    //}
 
     public TEntity Delete(TEntity entity)
     {

@@ -112,7 +112,7 @@ namespace MediBookAPI.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedTime = new DateTime(2025, 5, 6, 21, 54, 19, 530, DateTimeKind.Utc).AddTicks(8738),
+                            CreatedTime = new DateTime(2025, 5, 13, 20, 12, 58, 798, DateTimeKind.Utc).AddTicks(401),
                             FirstName = "Furkan",
                             HospitalId = 1,
                             LastName = "Duman",
@@ -121,7 +121,7 @@ namespace MediBookAPI.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedTime = new DateTime(2025, 5, 6, 21, 54, 19, 530, DateTimeKind.Utc).AddTicks(8741),
+                            CreatedTime = new DateTime(2025, 5, 13, 20, 12, 58, 798, DateTimeKind.Utc).AddTicks(403),
                             FirstName = "Hatice",
                             HospitalId = 1,
                             LastName = "Duman",
@@ -173,7 +173,7 @@ namespace MediBookAPI.DataAccess.Migrations
                             Id = 1,
                             Address = "Bağcılar",
                             City = "İstanbul",
-                            CreatedTime = new DateTime(2025, 5, 6, 21, 54, 19, 531, DateTimeKind.Utc).AddTicks(1274),
+                            CreatedTime = new DateTime(2025, 5, 13, 20, 12, 58, 798, DateTimeKind.Utc).AddTicks(3417),
                             Name = "Medipol Hastanesi"
                         });
                 });
@@ -217,7 +217,7 @@ namespace MediBookAPI.DataAccess.Migrations
                         {
                             Id = 1,
                             BirthDate = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedTime = new DateTime(2025, 5, 6, 21, 54, 19, 531, DateTimeKind.Utc).AddTicks(3723),
+                            CreatedTime = new DateTime(2025, 5, 13, 20, 12, 58, 798, DateTimeKind.Utc).AddTicks(6219),
                             FirstName = "Ahmet",
                             LastName = "Yılmaz"
                         });

@@ -6,6 +6,9 @@ using MediBookAPI.Service.Abstracts;
 using MediBookAPI.Model.Dtos.Appointments;
 using MediBookAPI.Model.Dtos.Doctors;
 using MediBookAPI.Model.Entities;
+using Core.DataAccess.Entities;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace MediBookAPI.Service.Concretes;
 
@@ -22,13 +25,14 @@ public sealed class DoctorService : IDoctorService
 
     public void Add(DoctorAddRequestDto dto)
     {
+
         Doctor doctor = new()
         {
-            FirstName=dto.FirstName,
-            LastName=dto.LastName,
-            Specialty=dto.Specialty
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+            Specialty = dto.Specialty
         };
-        _doctorRepository.Add(doctor);  
+        _doctorRepository.Add(doctor);
     }
 
     public void Delete(int id)
